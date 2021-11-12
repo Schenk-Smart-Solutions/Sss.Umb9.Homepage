@@ -1,0 +1,121 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <DefaultItemExcludes>$(DefaultItemExcludes);App_Plugins/**;</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);umbraco/**;</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot/media/**;</DefaultItemExcludes>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Shorthand.ImageSharp.WebP" Version="2.2.1" />
+        <PackageReference Include="Umbraco.Cms" Version="9.0.1" />
+        <PackageReference Include="uSync" Version="9.0.2" />
+        <PackageReference Include="WebMarkupMin.AspNetCore5" Version="2.10.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="App_Plugins/**" CopyToOutputDirectory="Always" />
+        <Content Include="umbraco/**" CopyToOutputDirectory="Always" />
+        <Compile Remove="wwwroot\media\**" />
+        <Compile Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
+        <Content Remove="umbraco/Data/**" />
+        <Content Remove="umbraco/Logs/**" />
+        <Content Remove="umbraco/mediacache/**" />
+        <Content Remove="umbraco/models/**" />
+        <Content Remove="wwwroot\media\**" />
+        <Content Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
+        <Compile Include="umbraco/models/**" Exclude="**/*.flag" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="wwwroot\media\**" />
+      <EmbeddedResource Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
+      <None Remove="wwwroot\media\**" />
+      <None Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Remove="appsettings.Development.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="favicon.ico" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="favicon.ico" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Sss.Umb9.Mutobo\Sss.Umb9.Mutobo.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="uSync\v9\ContentTypes\" />
+      <Folder Include="wwwroot\Smidge\" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="uSync\v9\Content\datenschutz.config" />
+      <None Include="uSync\v9\Content\firma.config" />
+      <None Include="uSync\v9\Content\home.config" />
+      <None Include="uSync\v9\Content\impressum.config" />
+      <None Include="uSync\v9\Content\landing-page.config" />
+      <None Include="uSync\v9\Content\mail-konfigurationen.config" />
+      <None Include="uSync\v9\Content\projekte.config" />
+      <None Include="uSync\v9\Content\receiver-mail.config" />
+      <None Include="uSync\v9\Content\sender-mail.config" />
+      <None Include="uSync\v9\Content\sitemap.config" />
+      <None Include="uSync\v9\Content\test.config" />
+      <None Include="uSync\v9\Domains\_.config" />
+      <None Include="uSync\v9\Media\20190422-061559896-ios.config" />
+      <None Include="uSync\v9\Media\20190723-040437268-ios.config" />
+      <None Include="uSync\v9\Media\20190816-041045901-ios.config" />
+      <None Include="uSync\v9\Media\20190912-160451141-ios.config" />
+      <None Include="uSync\v9\Media\20190924-062605274-ios.config" />
+      <None Include="uSync\v9\Media\bild0012.config" />
+      <None Include="uSync\v9\Media\bild0017.config" />
+      <None Include="uSync\v9\Media\bild0024.config" />
+      <None Include="uSync\v9\Media\code.config" />
+      <None Include="uSync\v9\Media\grizzly-221558-1920.config" />
+      <None Include="uSync\v9\Media\gvea01.config" />
+      <None Include="uSync\v9\Media\gvea02.config" />
+      <None Include="uSync\v9\Media\gvea03.config" />
+      <None Include="uSync\v9\Media\log-5182198-1920.config" />
+      <None Include="uSync\v9\Media\musikarin01.config" />
+      <None Include="uSync\v9\Media\musikarin02.config" />
+      <None Include="uSync\v9\Media\musikarin03.config" />
+      <None Include="uSync\v9\Media\paper-3213924-1920.config" />
+      <None Include="uSync\v9\Media\sss-logo.config" />
+      <None Include="uSync\v9\Media\victor-g7df370d58-1920.config" />
+      <None Include="uSync\v9\Media\vogel.config" />
+      <None Include="uSync\v9\Media\website.config" />
+    </ItemGroup>
+
+    <!-- Set this to true if ModelsBuilder mode is not InMemoryAuto-->
+    <PropertyGroup>
+        <RazorCompileOnBuild>false</RazorCompileOnBuild>
+        <RazorCompileOnPublish>false</RazorCompileOnPublish>
+    </PropertyGroup>
+  <PropertyGroup>
+    <CopyAllFilesToSingleFolderForMSDeployDependsOn>
+      CustomCollectFiles;
+      $(CopyAllFilesToSingleFolderForMSDeployDependsOn);
+    </CopyAllFilesToSingleFolderForMSDeployDependsOn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CopyAllFilesToSingleFolderForMSDeployDependsOn>
+      uSync;
+      $(CopyAllFilesToSingleFolderForMSDeployDependsOn);
+    </CopyAllFilesToSingleFolderForMSDeployDependsOn>
+    <UserSecretsId>7f902e03-0862-40f6-9423-625384da0120</UserSecretsId>
+  </PropertyGroup>
+  <Target Name="CustomCollectFiles">
+    <ItemGroup>
+      <_CustomFiles Include=".\wwwwroot\web-components-cms-template-base\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>wwwroot\web-components-cms-template-base\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
+  <Target Name="uSync">
+    <ItemGroup>
+      <_CustomFiles Include=".\uSync\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>uSync\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
+
+</Project>

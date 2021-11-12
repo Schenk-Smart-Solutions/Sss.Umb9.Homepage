@@ -1,0 +1,75 @@
+﻿@model Sss.Umb9.Mutobo.Modules.ContactForm
+@using Sss.Umb9.Mutobo.Configuration
+@using Sss.Umb9.Mutobo.Controllers.SurfaceControllers
+
+<base-m-contact-form type="newsletter" namespace="contactform-" namespace-children="" use-html-submit>
+
+    <style>
+        :host form a-button {
+            justify-content: center;
+            display: flex;
+            height: 70px;
+            width: 30%;
+            padding: 2em;
+        }
+
+        :host form a-input input:-webkit-autofill,
+        :host form a-input input:-webkit-autofill:focus {
+            -webkit-text-fill-color: var(--background-color);
+        }
+
+
+        @@media only screen and (max-width: 1000px) {
+            :host form a-input, :host form a-text-area {
+                width: 100% !important;
+            }
+        }
+    </style>
+
+    @using (Html.BeginUmbracoForm<ContactFormController>(nameof(ContactFormController.Submit), FormMethod.Post))
+    {
+        @Html.LabelFor(m => m.Data.Name, "Name *")
+
+        @Html.TextBoxFor(m => m.Data.Name, new
+        {
+            placeholder = "Bitte gib deinen Vornamen und deinen Nachnamen ein..",
+            required = "",
+            validation_message = "Dies ist ein Pflichtfeld",
+            @class = "form-control mandatory"
+        })
+
+        @Html.LabelFor(m => m.Data.Email, "Email *")
+
+        @Html.TextBoxFor(m => m.Data.Email, new
+        {
+           placeholder = "Bitte gib deine Email-Adresse ein..",
+           required = "",
+           validation_message = "Bitte eine gültige Email-Adresse eingeben",
+           @class = "form-control mandatory",
+           type = "email"
+        })
+
+        @Html.LabelFor(m => m.Data.Comment, "Deine Anfrage *")
+
+        @Html.TextAreaFor(m => m.Data.Comment, new
+        {
+           required = "",
+           validation_message = "Dies ist ein Pflichtfeld",
+           @class = "form-control mandatory",
+           style= "margin-top:2em;",
+           placeholder= "Gib hier deine Anfrage ein"
+
+         })
+        @Html.HiddenFor(m => m.Data.SenderMailConfigId)
+        @Html.HiddenFor(m => m.Data.ReceiverMailConfigId)
+        @Html.HiddenFor(m => m.Data.LandingPageId)
+        <button 
+                type="submit" 
+                id="submitButton"
+                class="g-recaptcha" 
+        data-sitekey="6Ld1RugcAAAAAPfUk_QFg4qS6Jh8ciri0zEvN46D" 
+        data-callback='onSubmit' 
+        data-action='submit'>Senden</button>
+    }
+</base-m-contact-form>
+

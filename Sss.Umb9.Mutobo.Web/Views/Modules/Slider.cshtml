@@ -1,0 +1,28 @@
+﻿@using Sss.Umb9.Mutobo.Interfaces
+@using Sss.Umb9.Mutobo.PoCo
+@model Sss.Umb9.Mutobo.Modules.SliderComponent
+
+<div>
+    <third-party-macro-carousel pagination loop height="@(Model.Height != null ? $"{Model.Height}px" : "auto")" namespace="carousel-" interval="@(Model.Interval ?? 5000)">
+        @foreach (var media in Model.Slides)
+        {
+            if (media is Sss.Umb9.Mutobo.PoCo.Image image)
+            {
+
+                <a-picture defaultsource="@image.DefaultSource.Src" sources="@image.GetSourcesAsJSON()"></a-picture>
+
+            }
+            else if (media is Sss.Umb9.Mutobo.PoCo.Picture picture)
+            {
+                <a-picture defaultsource="@picture.Image.DefaultSource.Src" sources="@picture.Image.GetSourcesAsJSON()"></a-picture>
+
+            }
+            else if (media is IVideoComponent video)
+            {
+
+                @await Html.PartialAsync("~/Views/Modules/VideoComponent.cshtml", video)
+            }
+
+        }
+    </third-party-macro-carousel>
+</div>
