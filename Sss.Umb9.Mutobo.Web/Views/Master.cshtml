@@ -19,13 +19,11 @@
 
 
     <meta name=viewport content="width=device-width, initial-scale=1.0">
-   <link href="~/web-components-cms-template-base/src/css/variables.css" rel="stylesheet" />
-        <link href="~/web-components-cms-template-base/src/css/misc.css" rel="stylesheet" />
-        <link href="~/web-components-cms-template-base/src/css/fonts.css" rel="stylesheet" />
+    <link href="~/web-components-cms-template-base/src/css/variables.css" rel="stylesheet" />
+    <link href="~/web-components-cms-template-base/src/css/misc.css" rel="stylesheet" />
+    <link href="~/web-components-cms-template-base/src/css/fonts.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>@Model.PageTitle</title>
-
-
     @await Html.PartialAsync("~/Views/Partials/SEOConfiguration.cshtml", seoServive.GetSeoConfiguration())
 
 
@@ -38,7 +36,7 @@
 
     @if (Model.Theme != null)
     {
-         @await Html.PartialAsync("~/Views/Partials/CssVariables.cshtml", Model.Theme)
+        @await Html.PartialAsync("~/Views/Partials/CssVariables.cshtml", Model.Theme)
     }
     <meta name="google-site-verification" content="_IpG1wUM8f4hPY4i-ZNFuzduXJnzEz-HqHgVKcHRe_Q" />
 </head>
@@ -48,18 +46,13 @@
         {
             @await Html.PartialAsync("~/Views/Partials/Header.cshtml", Model.HeaderConfiguration)
         }
-        
         @RenderBody()
-        
-
         @if (Model.FooterConfiguration != null)
         {
-             @await Html.PartialAsync("~/Views/Partials/Footer.cshtml", Model.FooterConfiguration as Sss.Umb9.Mutobo.Configuration.FooterConfiguration)
+            @await Html.PartialAsync("~/Views/Partials/Footer.cshtml", Model.FooterConfiguration as Sss.Umb9.Mutobo.Configuration.FooterConfiguration)
         }
-       
     </p-general>
     <script src="/web-components-cms-template-base/wc-config.js?baseUrl=/web-components-cms-template-base/src/es/components/" type="text/javascript"></script>
-
     <m-cookie-banner storage="localStorage" namespace="cookie-banner-">
         <style>
             :host {
@@ -81,10 +74,11 @@
             document.getElementById("demo-form").submit();
         }
     </script>
-    
-    <script rel="preload" type="module">self.Environment = {
-    mobileBreakpoint: '1250px'
-    }</script>
+
+    <script rel="preload" type="module">
+        self.Environment = {
+            mobileBreakpoint: '1250px'
+            }</script>
 </body>
 
 </html>
