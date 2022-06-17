@@ -83,17 +83,16 @@ namespace Sss.Umb9.Mutobo.Components
 
                             if (contentNode != null)
                             {
-
-                                string moduleContent;
-
+                                Dictionary<string, IEnumerable<object>> valueSet = new Dictionary<string, IEnumerable<object>>();
+                                List<string> moduleValues = new List<string>();
 
                                 switch (contentNode.ContentType.Alias)
                                 {
                                     case DocumentTypes.HomePage.Alias:
                                         if (contentNode.HasValue(DocumentTypes.HomePage.Fields.Modules, culture.Key))
                                         {
-                                            moduleContent = IndexModules(_mutoboContentService.GetContent(contentNode, DocumentTypes.HomePage.Fields.Modules, culture.Key) as IEnumerable<MutoboContentModule>);
-                                            e.ValueSet.Set("modules", moduleContent);
+                                           moduleValues.Add(IndexModules(_mutoboContentService.GetContent(contentNode, DocumentTypes.HomePage.Fields.Modules, culture.Key) as IEnumerable<MutoboContentModule>));
+                                            
                                         }
                                         break;
 
@@ -102,15 +101,14 @@ namespace Sss.Umb9.Mutobo.Components
 
                                         if (contentNode.HasValue(DocumentTypes.ContentPage.Fields.Modules, culture.Key))
                                         {
-                                            moduleContent = IndexModules(_mutoboContentService.GetContent(contentNode, DocumentTypes.ContentPage.Fields.Modules, culture.Key) as IEnumerable<MutoboContentModule>);
-                                            e.ValueSet.Set("modules", moduleContent);
+                                            moduleValues.Add(IndexModules(_mutoboContentService.GetContent(contentNode, DocumentTypes.ContentPage.Fields.Modules, culture.Key) as IEnumerable<MutoboContentModule>));
                                         }
                                         break;
 
 
                                 }
 
-
+                                valueSet.Add("modules", moduleValues);
 
                             }
 
