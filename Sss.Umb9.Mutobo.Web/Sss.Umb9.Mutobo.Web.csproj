@@ -40,6 +40,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Remove="appsettings.Development.json" />
+      <Content Remove="appsettings.json" />
       <Content Remove="uSync\v9\ContentTypes\accordeon.config" />
       <Content Remove="uSync\v9\ContentTypes\articlepage.config" />
       <Content Remove="uSync\v9\ContentTypes\basepage.config" />
@@ -292,6 +293,7 @@
       <ProjectReference Include="..\Sss.Umb9.Mutobo\Sss.Umb9.Mutobo.csproj" />
     </ItemGroup>
     <ItemGroup>
+      <None Include="appsettings.json" />
       <None Include="uSync\v9\ContentTypes\accordeon.config" />
       <None Include="uSync\v9\ContentTypes\articlepage.config" />
       <None Include="uSync\v9\ContentTypes\basepage.config" />
