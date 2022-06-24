@@ -13,6 +13,8 @@
             padding: 2em;
         }
 
+       
+
         :host form a-input input:-webkit-autofill,
         :host form a-input input:-webkit-autofill:focus {
             -webkit-text-fill-color: var(--background-color);
@@ -60,9 +62,17 @@
            placeholder= "Gib hier deine Anfrage ein"
 
          })
+        
+        <div class="website-container">
+        @Html.TextBoxFor(m => m.Data.FuSb, new { name="website" })
+        </div> 
+         
         @Html.HiddenFor(m => m.Data.SenderMailConfigId)
         @Html.HiddenFor(m => m.Data.ReceiverMailConfigId)
         @Html.HiddenFor(m => m.Data.LandingPageId)
+
+
+
         <button 
                 type="submit" 
                 id="submitButton"

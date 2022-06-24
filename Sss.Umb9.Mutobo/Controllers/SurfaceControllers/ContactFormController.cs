@@ -48,8 +48,10 @@ namespace Sss.Umb9.Mutobo.Controllers.SurfaceControllers
                 return CurrentUmbracoPage();
             }
 
-            _mailService.SendContactMail(data);
-            _mailService.SendConfirmationMail(data);
+            if (!string.IsNullOrEmpty(data.FuSb)) {
+                _mailService.SendContactMail(data);
+                _mailService.SendConfirmationMail(data);
+            }
 
             return RedirectToUmbracoPage(data.LandingPageId);
         }
