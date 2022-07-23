@@ -5,7 +5,7 @@
 {
 
     <o-highlight-list>
-        @foreach (var highlight in Model.BlogEntries)
+        @foreach (var highlight in Model.BlogEntries.OrderByDescending(be => be.Content.CreateDate))
         {
             <m-highlight namespace="blog-">
                 <a href="@highlight.Content.Url()">
