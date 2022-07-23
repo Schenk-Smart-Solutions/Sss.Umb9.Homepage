@@ -488,3 +488,6 @@ $RECYCLE.BIN/
 **/wwwroot/media/
 
 
+appsettings.Development.json
+
+
