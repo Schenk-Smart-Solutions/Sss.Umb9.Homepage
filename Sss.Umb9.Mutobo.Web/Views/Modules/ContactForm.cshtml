@@ -77,15 +77,13 @@
 
 
 
+
+
         <button 
                 type="submit" 
-                id="submitButton"
-                class="g-recaptcha" 
-        data-sitekey="6Ld1RugcAAAAAPfUk_QFg4qS6Jh8ciri0zEvN46D" 
-        data-callback='onSubmit' 
-        data-action='submit'>Senden</button>
-                <div class="website-container">
-        @Html.TextBoxFor(m => m.Data.FuSb, new { name="website" })
+                id="submitButton">Senden</button>
+        <div class="website-container">
+            @Html.TextBoxFor(m => m.Data.FuSb, new { name="website" })
         </div> 
     }
 </base-m-contact-form>
