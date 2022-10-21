@@ -132,14 +132,15 @@ public class CaptchaService : ICaptchaService
                 _captchas[id].Text = newText;
                 _captchas[id].Image = image;
                 _captchas[id].TimeStamp = DateTime.Now;
+                result = new()
+                {
+                    Id = id,
+                    Image = _captchas[id].Image.ToBase64String(_captchas[id].Image.GetConfiguration().ImageFormatsManager.FindFormatByFileExtension("png"))
+                };
 
             }
 
-            result = new()
-            {
-                Id = id,
-                Image = _captchas[id].Image.ToBase64String(_captchas[id].Image.GetConfiguration().ImageFormatsManager.FindFormatByFileExtension("png"))
-            };
+
         }
 
         return result;
