@@ -26,14 +26,18 @@ using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Formats.Webp;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Sss.Umb9.Mutobo.Services;
 
 public class CaptchaService : ICaptchaService
 {
+    private readonly object _lockObj = new();
     private readonly int _width = 500;
     private readonly int _height = 60;
     private readonly IWebHostEnvironment _webHostEnvironment;
+    
     private readonly Dictionary<Guid, Captcha> _captchas = new Dictionary<Guid, Captcha>();
     private readonly List<Color> _darkColors = new List<Color> {
         Color.Blue,
@@ -59,12 +63,36 @@ public class CaptchaService : ICaptchaService
 
 
 
+    private async Task CleanupCaptchas() {
+        Guid keyToRemove = Guid.Empty;
+        lock (_lockObj) {
 
+            foreach (var key in _captchas.Keys)
+            {
+                if (_captchas[key].TimeStamp < DateTime.Now.AddMinutes(-5))
+                {
+                    keyToRemove = key;
+                }
+            }
+
+            if (keyToRemove != Guid.Empty)
+                _captchas.Remove(keyToRemove);
+        }
+        await Task.Delay(300_000);
+    }
 
 
     public CaptchaService(IWebHostEnvironment webHostEnvironment)
     {
         _webHostEnvironment = webHostEnvironment;
+        var task = Task.Run(async () =>
+        {
+            while (true)
+            {
+                await CleanupCaptchas();
+               
+            }
+        });
     }
 
  
@@ -76,10 +104,14 @@ public class CaptchaService : ICaptchaService
         Captcha captcha = new() {
             Image = GenerateCapcthaImage(text),
             Text = text,
+            TimeStamp = DateTime.Now
         };
-        
-        _captchas.Add(id, captcha);
 
+        lock (_lockObj)
+        {
+            _captchas.Add(id, captcha);
+        }
+        
         return new()
         {
             Id = id,
@@ -90,21 +122,27 @@ public class CaptchaService : ICaptchaService
 
     public CaptchaResponse RefreshCaptcha(Guid id)
     {
-        if (_captchas.ContainsKey(id))
+        CaptchaResponse result = null;
+        lock (_lockObj)
         {
-            var newText = GetRandomText(6);
-            var image = GenerateCapcthaImage(newText);
-            _captchas[id].Text = newText;
-            _captchas[id].Image = image;
-            
+            if (_captchas.ContainsKey(id))
+            {
+                var newText = GetRandomText(6);
+                var image = GenerateCapcthaImage(newText);
+                _captchas[id].Text = newText;
+                _captchas[id].Image = image;
+                _captchas[id].TimeStamp = DateTime.Now;
+
+            }
+
+            result = new()
+            {
+                Id = id,
+                Image = _captchas[id].Image.ToBase64String(_captchas[id].Image.GetConfiguration().ImageFormatsManager.FindFormatByFileExtension("png"))
+            };
         }
 
-        return new()
-        {
-            Id = id,
-            Image = _captchas[id].Image.ToBase64String(_captchas[id].Image.GetConfiguration().ImageFormatsManager.FindFormatByFileExtension("png"))
-        };
-
+        return result;
     }
 
     public bool ValidateCaptcha(CaptchaRequest request)
@@ -115,11 +153,6 @@ public class CaptchaService : ICaptchaService
         if (captcha.Text != request.Text) return false;
         return true;
     }
-
-
-    
-
-
 
     private Image<Rgba32> GenerateCapcthaImage(string text)
     {
@@ -172,8 +205,6 @@ public class CaptchaService : ICaptchaService
         textImage.Mutate(x => x.DrawText(options3, text, brush, pen));
         image.Mutate(x => x.DrawImage(textImage, 0.3f));
         image.Mutate(i => i.Crop(180, 60));
-
-        
         return image;
     }
 

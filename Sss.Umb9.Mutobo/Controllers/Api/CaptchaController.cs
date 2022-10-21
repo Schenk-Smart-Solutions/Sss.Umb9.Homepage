@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Sss.Umb9.Mutobo.Interfaces;
 using Sss.Umb9.Mutobo.PoCo;
@@ -13,6 +14,7 @@ using Umbraco.Cms.Web.Common.Controllers;
 namespace Sss.Umb9.Mutobo.Controllers.Api;
 
 [EnableCors(PolicyName = "_myAllowSpecificOrigins")]
+[AllowAnonymous]
 public class CaptchaController : UmbracoApiController
 {
 

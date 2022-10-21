@@ -64,7 +64,6 @@
            required = "",
            validation_message = "Dies ist ein Pflichtfeld",
            @class = "form-control mandatory",
-           style= "margin-top:2em;",
            placeholder= "Gib hier deine Anfrage ein"
 
          })
@@ -76,8 +75,18 @@
         @Html.HiddenFor(m => m.Data.LandingPageId)
         @Html.HiddenFor(m => m.Data.CaptchaId)
 
+       
+
+        @Html.LabelFor(m => m.Data.CaptchaText, "Spamschutz *")
         <base-m-captcha id="@Model.Captcha.Id" src="@Model.Captcha.Image"></base-m-captcha>
-        @Html.TextBoxFor(m => m.Data.CaptchaText)
+        @Html.TextBoxFor(m => m.Data.CaptchaText, new
+        {
+        required = "",
+        validation_message = "Dies ist ein Pflichtfeld",
+        @class = "form-control mandatory",
+        placeholder= "Gib hier die 6 Buchtaben aus dem Bild ein"
+
+        })
 
 
         <button 
