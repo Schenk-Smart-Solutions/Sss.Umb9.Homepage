@@ -35,15 +35,17 @@ public class CaptchaController : UmbracoApiController
     }
 
     [HttpPost]
-    public bool ValidateCaptcha(CaptchaRequest request)
+    public bool ValidateCaptcha([FromBody] CaptchaRequest request)
     {
         var result = _captchaService.ValidateCaptcha(request);
         return result;
     }
 
-    public string RefrehCaptcha(Guid id)
+    [HttpGet]
+    public CaptchaResponse RefreshCaptcha(Guid id)
     {
-        return "Test";
+        var test = _captchaService.RefreshCaptcha(id);
+        return test;
     
     }
 }

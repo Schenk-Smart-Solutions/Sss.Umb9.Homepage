@@ -14,6 +14,8 @@ namespace Sss.Umb9.Mutobo.Interfaces
         CaptchaResponse GenerateCaptcha();
         bool ValidateCaptcha(CaptchaRequest request);
 
+        CaptchaResponse RefreshCaptcha(Guid Id);
+
 
     }
 }

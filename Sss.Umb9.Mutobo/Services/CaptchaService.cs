@@ -88,7 +88,25 @@ public class CaptchaService : ICaptchaService
 
     }
 
-  
+    public CaptchaResponse RefreshCaptcha(Guid id)
+    {
+        if (_captchas.ContainsKey(id))
+        {
+            var newText = GetRandomText(6);
+            var image = GenerateCapcthaImage(newText);
+            _captchas[id].Text = newText;
+            _captchas[id].Image = image;
+            
+        }
+
+        return new()
+        {
+            Id = id,
+            Image = _captchas[id].Image.ToBase64String(_captchas[id].Image.GetConfiguration().ImageFormatsManager.FindFormatByFileExtension("png"))
+        };
+
+    }
+
     public bool ValidateCaptcha(CaptchaRequest request)
     {
         if (!_captchas.ContainsKey(request.Id)) return false;

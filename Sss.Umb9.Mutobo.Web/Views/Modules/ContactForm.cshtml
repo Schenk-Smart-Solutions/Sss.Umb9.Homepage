@@ -77,7 +77,7 @@
         @Html.HiddenFor(m => m.Data.CaptchaId)
 
         <base-m-captcha id="@Model.Captcha.Id" src="@Model.Captcha.Image"></base-m-captcha>
-
+        @Html.TextBoxFor(m => m.Data.CaptchaText)
 
 
         <button 
