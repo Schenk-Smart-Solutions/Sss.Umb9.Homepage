@@ -21,10 +21,6 @@ namespace Sss.Umb9.Mutobo.Controllers.SurfaceControllers
     {
         private readonly IMailService _mailService;
 
-
-
-
-
         public ContactFormController(
             IUmbracoContextAccessor umbracoContextAccessor, 
             IUmbracoDatabaseFactory databaseFactory, 
@@ -48,10 +44,10 @@ namespace Sss.Umb9.Mutobo.Controllers.SurfaceControllers
                 return CurrentUmbracoPage();
             }
 
-            if (!string.IsNullOrEmpty(data.FuSb)) {
+            //if (!string.IsNullOrEmpty(data.FuSb)) {
                 _mailService.SendContactMail(data);
                 _mailService.SendConfirmationMail(data);
-            }
+            //}
 
             return RedirectToUmbracoPage(data.LandingPageId);
         }

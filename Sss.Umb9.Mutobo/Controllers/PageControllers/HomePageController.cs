@@ -6,6 +6,7 @@ using Sss.Umb9.Mutobo.Constants;
 using Sss.Umb9.Mutobo.Interfaces;
 using Sss.Umb9.Mutobo.Modules;
 using Sss.Umb9.Mutobo.PageModels;
+using Sss.Umb9.Mutobo.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,8 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             IImageService imageService,
             IMutoboContentService contentService,
             IPageLayoutService pageLayoutService,
-            ICallToActionService callToActionService) 
+            ICallToActionService callToActionService,
+            ICaptchaService captchaService) 
                 : base(
                       logger, 
                       compositeViewEngine, 
@@ -37,7 +39,8 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
                       imageService, 
                       pageLayoutService, 
                       contentService,
-                      callToActionService)
+        callToActionService,
+                      captchaService)
         {
         
 

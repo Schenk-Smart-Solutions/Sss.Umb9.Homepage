@@ -25,6 +25,7 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
         protected readonly IPageLayoutService PageLayoutService;
         protected readonly IMutoboContentService ContententService;
         private readonly ICallToActionService _callToActionService;
+        private readonly ICaptchaService _captchaService;
 
         public BasePageController(
             ILogger<RenderController> logger,
@@ -33,13 +34,15 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             IImageService imageService,
             IPageLayoutService pageLayoutService,
             IMutoboContentService contentService,
-            ICallToActionService callToActionService)
+            ICallToActionService callToActionService,
+            ICaptchaService captchaService)
             : base(logger, compositeViewEngine, umbracoContextAccessor)
         {
             ImageService = imageService;
             PageLayoutService = pageLayoutService;
             ContententService = contentService;
             _callToActionService = callToActionService;
+            _captchaService = captchaService;
         }
 
 

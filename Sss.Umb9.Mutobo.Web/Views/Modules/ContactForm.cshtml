@@ -64,7 +64,6 @@
            required = "",
            validation_message = "Dies ist ein Pflichtfeld",
            @class = "form-control mandatory",
-           style= "margin-top:2em;",
            placeholder= "Gib hier deine Anfrage ein"
 
          })
@@ -74,18 +73,27 @@
         @Html.HiddenFor(m => m.Data.SenderMailConfigId)
         @Html.HiddenFor(m => m.Data.ReceiverMailConfigId)
         @Html.HiddenFor(m => m.Data.LandingPageId)
+        @Html.HiddenFor(m => m.Data.CaptchaId)
 
+       
+
+        @Html.LabelFor(m => m.Data.CaptchaText, "Spamschutz *")
+        <base-m-captcha id="@Model.Captcha.Id" src="@Model.Captcha.Image"></base-m-captcha>
+        @Html.TextBoxFor(m => m.Data.CaptchaText, new
+        {
+        required = "",
+        validation_message = "Dies ist ein Pflichtfeld",
+        @class = "form-control mandatory",
+        placeholder= "Gib hier die 6 Buchtaben aus dem Bild ein"
+
+        })
 
 
         <button 
                 type="submit" 
-                id="submitButton"
-                class="g-recaptcha" 
-        data-sitekey="6Ld1RugcAAAAAPfUk_QFg4qS6Jh8ciri0zEvN46D" 
-        data-callback='onSubmit' 
-        data-action='submit'>Senden</button>
-                <div class="website-container">
-        @Html.TextBoxFor(m => m.Data.FuSb, new { name="website" })
+                id="submitButton">Senden</button>
+        <div class="website-container">
+            @Html.TextBoxFor(m => m.Data.FuSb, new { name="website" })
         </div> 
     }
 </base-m-contact-form>

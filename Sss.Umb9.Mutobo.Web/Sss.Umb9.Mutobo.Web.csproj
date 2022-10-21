@@ -7,9 +7,9 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Shorthand.ImageSharp.WebP" Version="2.2.1" />
-        <PackageReference Include="Umbraco.Cms" Version="10.0.0" />
-        <PackageReference Include="uSync" Version="10.0.0" />
-        <PackageReference Include="WebMarkupMin.AspNetCore5" Version="2.11.0" />
+        <PackageReference Include="Umbraco.Cms" Version="10.3.1" />
+        <PackageReference Include="uSync" Version="10.3.0" />
+        <PackageReference Include="WebMarkupMin.AspNetCore5" Version="2.12.0" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="App_Plugins/**" CopyToOutputDirectory="Always" />
@@ -293,6 +293,7 @@
       <ProjectReference Include="..\Sss.Umb9.Mutobo\Sss.Umb9.Mutobo.csproj" />
     </ItemGroup>
     <ItemGroup>
+      <None Include="appsettings.Development.json" />
       <None Include="appsettings.json" />
       <None Include="uSync\v9\ContentTypes\accordeon.config" />
       <None Include="uSync\v9\ContentTypes\articlepage.config" />
@@ -535,6 +536,9 @@
       <None Include="uSync\v9\Templates\searchresults.config" />
       <None Include="uSync\v9\Templates\wrapper.config" />
       <None Include="uSync\v9\usync.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="wwwroot\assets\fonts\" />
     </ItemGroup>
 
     <!-- Set this to true if ModelsBuilder mode is not InMemoryAuto-->

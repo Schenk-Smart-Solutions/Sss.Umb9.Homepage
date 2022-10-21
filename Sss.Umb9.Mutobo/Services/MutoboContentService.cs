@@ -25,6 +25,7 @@ namespace Sss.Umb9.Mutobo.Services
         private readonly ICardService _cardService;
         protected readonly IThemeService ThemeService;
         private readonly IUmbracoContextFactory _umbracoContextFactory;
+        private readonly ICaptchaService _captchaService;
 
 
 
@@ -36,7 +37,8 @@ namespace Sss.Umb9.Mutobo.Services
             ICardService cardService,
             IUmbracoContextAccessor contextAccessor,
             IUmbracoContextFactory contextFactory,
-            IThemeService themeService)
+            IThemeService themeService,
+            ICaptchaService captchaService)
                 : base(logger, contextAccessor)
         {
             SliderService = sliderService;
@@ -44,6 +46,7 @@ namespace Sss.Umb9.Mutobo.Services
             ImageService = imageService;
             ThemeService = themeService;
             _umbracoContextFactory = contextFactory;
+            _captchaService = captchaService;
         }
 
         public IEnumerable<IModule> GetContent(IPublishedContent content, string fieldName, string culture = null)
@@ -187,10 +190,14 @@ namespace Sss.Umb9.Mutobo.Services
                         //    });
                         //    break;
                         case DocumentTypes.ContactForm.Alias:
-                            var contactFormModel = new ContactForm(element.value, null);
+                            var captcha = _captchaService.GenerateCaptcha();
+                            var contactFormModel = new ContactForm(element.value, null) { 
+                                Captcha = captcha
+                            };
 
                             contactFormModel.Data = new ContactFormData
                             {
+                                CaptchaId = captcha.Id,
                                 ReceiverMailConfigId = contactFormModel.ReceiverMailConfig.Content.Id,
                                 SenderMailConfigId = contactFormModel.SenderMailConfig.Content.Id,
                                 LandingPageId = contactFormModel.LandingPage.Key
