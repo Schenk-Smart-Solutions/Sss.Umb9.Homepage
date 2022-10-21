@@ -15,6 +15,7 @@ namespace Sss.Umb9.Mutobo.PoCo
         public int ReceiverMailConfigId { get; set; }
         public Guid LandingPageId { get; set; }
         public string FuSb { get; set; }
+        public Guid CaptchaId { get; set; }
 
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sss.Umb9.Mutobo.Components;
 using Sss.Umb9.Mutobo.Interfaces;
+using Sss.Umb9.Mutobo.Options;
 using Sss.Umb9.Mutobo.Services;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,22 @@ namespace Sss.Umb9.Mutobo.Composer
 
         private void RegisterServices(IUmbracoBuilder builder)
         {
+            var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
+            builder.Services.ConfigureOptions<CustomUmbracoOptions>();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: myAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyHeader();
+                                      policy.AllowAnyMethod();
+                                      policy.AllowAnyOrigin();
+
+                                  });
+            });
+
             builder.Services.AddSingleton<IImageService, ImageService>();
             builder.Services.AddSingleton<IConfigurationService, ConfigurationService>();
             builder.Services.AddTransient<IMutoboContentService, MutoboContentService>();
@@ -55,6 +72,7 @@ namespace Sss.Umb9.Mutobo.Composer
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddSingleton<ICallToActionService, CalllToActionService>();
             builder.Services.AddSingleton<IThemeService, ThemeService>();
+            builder.Services.AddSingleton<ICaptchaService, CaptchaService>();
         }
     }
 }

@@ -20,14 +20,16 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             IImageService imageService, 
             IPageLayoutService pageLayoutService, 
             IMutoboContentService contentService,
-            ICallToActionService callToActionService) : base(
+            ICallToActionService callToActionService,
+            ICaptchaService captchaService) : base(
                 logger, 
                 compositeViewEngine, 
                 umbracoContextAccessor, 
                 imageService, 
                 pageLayoutService, 
                 contentService,
-                callToActionService)
+                callToActionService,
+                captchaService)
         {
         }
     }

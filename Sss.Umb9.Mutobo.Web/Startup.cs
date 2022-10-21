@@ -104,7 +104,8 @@ namespace Sss.Umb9.Mutobo.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors();
+
+
             //app.UseResponseCaching();
 
             //app.Use(async (context, next) =>
@@ -124,9 +125,14 @@ namespace Sss.Umb9.Mutobo.Web
             //});
             app.UseWebMarkupMin();
 
+
+
             app.UseUmbraco()
-                .WithMiddleware(u =>
+                .WithCustomMiddleware(u =>
                 {
+                    u.RunPrePipeline();
+                    u.RegisterDefaultRequiredMiddleware();
+                    u.RunPostPipeline();
                     u.UseBackOffice();
                     u.UseWebsite();
                 })

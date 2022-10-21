@@ -12,33 +12,34 @@ using System.Threading.Tasks;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Extensions;
 
-namespace Sss.Umb9.Mutobo.Modules
+namespace Sss.Umb9.Mutobo.Modules;
+
+public class ContactForm : MutoboContentModule, IModule
 {
-    public class ContactForm : MutoboContentModule, IModule
+
+    public ContactFormData Data { get; set; }
+
+    public CaptchaResponse Captcha { get; set; }
+
+    public IPublishedContent TargetPage { get; set; }
+
+    public MailConfiguration SenderMailConfig => this.HasValue(DocumentTypes.ContactForm.Fields.SenderMailConfiguration) ?
+        new MailConfiguration(this.Value<IPublishedContent>(DocumentTypes.ContactForm.Fields.SenderMailConfiguration)) : null; 
+    public MailConfiguration ReceiverMailConfig => this.HasValue(DocumentTypes.ContactForm.Fields.ReceiverMailConfiguration) ?
+        new MailConfiguration(this.Value<IPublishedContent>(DocumentTypes.ContactForm.Fields.ReceiverMailConfiguration)) : null;
+
+    public IPublishedContent LandingPage => this.HasValue(DocumentTypes.ContactForm.Fields.LandingPage) ?
+        this.Value<IPublishedContent>(DocumentTypes.ContactForm.Fields.LandingPage) : null;
+
+
+    public ContactForm(IPublishedElement content, IPublishedValueFallback publishedValueFallback) : base(content, publishedValueFallback)
     {
-
-        public ContactFormData Data { get; set; }
-
-        public IPublishedContent TargetPage { get; set; }
-
-        public MailConfiguration SenderMailConfig => this.HasValue(DocumentTypes.ContactForm.Fields.SenderMailConfiguration) ?
-            new MailConfiguration(this.Value<IPublishedContent>(DocumentTypes.ContactForm.Fields.SenderMailConfiguration)) : null; 
-        public MailConfiguration ReceiverMailConfig => this.HasValue(DocumentTypes.ContactForm.Fields.ReceiverMailConfiguration) ?
-            new MailConfiguration(this.Value<IPublishedContent>(DocumentTypes.ContactForm.Fields.ReceiverMailConfiguration)) : null;
-
-        public IPublishedContent LandingPage => this.HasValue(DocumentTypes.ContactForm.Fields.LandingPage) ?
-            this.Value<IPublishedContent>(DocumentTypes.ContactForm.Fields.LandingPage) : null;
-
-
-        public ContactForm(IPublishedElement content, IPublishedValueFallback publishedValueFallback) : base(content, publishedValueFallback)
-        {
-        }
-
-        public async Task<IHtmlContent> RenderModule(IHtmlHelper helper)
-        {
-            return await helper.PartialAsync("~/Views/Modules/ContactForm.cshtml", this, helper.ViewData);
-        }
-
-
     }
+
+    public async Task<IHtmlContent> RenderModule(IHtmlHelper helper)
+    {
+        return await helper.PartialAsync("~/Views/Modules/ContactForm.cshtml", this, helper.ViewData);
+    }
+
+
 }

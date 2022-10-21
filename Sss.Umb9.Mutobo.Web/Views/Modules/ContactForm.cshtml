@@ -74,8 +74,9 @@
         @Html.HiddenFor(m => m.Data.SenderMailConfigId)
         @Html.HiddenFor(m => m.Data.ReceiverMailConfigId)
         @Html.HiddenFor(m => m.Data.LandingPageId)
+        @Html.HiddenFor(m => m.Data.CaptchaId)
 
-
+        <base-m-captcha id="@Model.Captcha.Id" src="@Model.Captcha.Image"></base-m-captcha>
 
 
 
