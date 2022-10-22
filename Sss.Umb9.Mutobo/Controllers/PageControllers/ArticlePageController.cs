@@ -28,8 +28,9 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             IPageLayoutService pageLayoutService,
             IMutoboContentService contentService,
             ICallToActionService callToActionService,
-            ICaptchaService captchaService) 
-            : base(logger, compositeViewEngine, umbracoContextAccessor, imageService, pageLayoutService, contentService, callToActionService, captchaService)
+            ICaptchaService captchaService,
+            ISearchService searchService) 
+            : base(logger, compositeViewEngine, umbracoContextAccessor, imageService, pageLayoutService, contentService, callToActionService, captchaService, searchService)
         {
 
           

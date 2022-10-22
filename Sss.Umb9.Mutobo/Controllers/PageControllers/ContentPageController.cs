@@ -28,7 +28,8 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             IMutoboContentService contentService,
             IPageLayoutService pageLayoutService,
             ICallToActionService callToActionService,
-            ICaptchaService captchaService)
+            ICaptchaService captchaService,
+            ISearchService searchService)
                 : base(
                       logger, 
                       compositeViewEngine, 
@@ -37,7 +38,8 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
                       pageLayoutService, 
                       contentService,
                       callToActionService,
-                      captchaService)
+                      captchaService,
+                      searchService)
         {
            
         }

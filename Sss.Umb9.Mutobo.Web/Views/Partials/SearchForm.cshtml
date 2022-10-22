@@ -2,12 +2,18 @@
 @using Sss.Umb9.Mutobo.Controllers.SurfaceControllers
 
 
-<m-form type="search" namespace="search-" use-html-submit >
+@*<m-form type="search" namespace="search-" use-html-submit >
 
 
 
     @using (Html.BeginUmbracoForm<SearchFormController>(nameof(SearchFormController.PostData), FormMethod.Post))
     {
+
+
+        
+
+
+
     <a-input type="text" namespace="search-field-">
         <style>
             :host > input:-webkit-autofill,
@@ -34,4 +40,13 @@
             </button>
         </a-button>
     }
-</m-form>
+</m-form>*@
+<div>
+<a-input inputid="inputSearch" namespace="search-" placeholder="Suche..." search="/suche?q=" type="search" tabindex="0" role="search" aria-label="search">
+<style>
+            input:focus:not(:read-only):not(:invalid){
+                background-color: var(--header-background-color) !important;
+            }
+</style>    
+</a-input>
+</div>

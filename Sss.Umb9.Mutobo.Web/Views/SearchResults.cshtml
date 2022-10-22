@@ -7,10 +7,10 @@
 	Layout = "Master.cshtml";
 }
 
-<o-body>
+<base-o-body>
 
 
-    @await Html.PartialAsync("~/Views/Partials/SearchForm.cshtml", new SearchFormModel() { })
+
 
     @if (!string.IsNullOrEmpty(Model.Term))
     {
@@ -50,4 +50,4 @@
             <p>@($"Die Suche nach \"{Model.Term}\" ergab keine Resultate")</p>
         }
     }
-</o-body>
+</base-o-body>

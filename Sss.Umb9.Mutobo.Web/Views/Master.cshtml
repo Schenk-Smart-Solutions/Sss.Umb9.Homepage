@@ -41,18 +41,22 @@
     <meta name="google-site-verification" content="_IpG1wUM8f4hPY4i-ZNFuzduXJnzEz-HqHgVKcHRe_Q" />
 </head>
 <body>
-    <p-general>
-        @if (Model.HeaderConfiguration != null)
-        {
-            @await Html.PartialAsync("~/Views/Partials/Header.cshtml", Model.HeaderConfiguration)
-        }
-        @RenderBody()
-        @if (Model.FooterConfiguration != null)
-        {
-            @await Html.PartialAsync("~/Views/Partials/Footer.cshtml", Model.FooterConfiguration as Sss.Umb9.Mutobo.Configuration.FooterConfiguration)
-        }
-    </p-general>
-    <script src="/web-components-cms-template-base/wc-config.js?baseUrl=/web-components-cms-template-base/src/es/components/" type="text/javascript"></script>
+    <c-fetch-css>
+        <p-general>
+            @if (Model.HeaderConfiguration != null)
+            {
+                @await Html.PartialAsync("~/Views/Partials/Header.cshtml", Model.HeaderConfiguration)
+            }
+            @RenderBody()
+            @if (Model.FooterConfiguration != null)
+            {
+                @await Html.PartialAsync("~/Views/Partials/Footer.cshtml", Model.FooterConfiguration as Sss.Umb9.Mutobo.Configuration.FooterConfiguration)
+            }
+        </p-general>
+    </c-fetch-css>
+    
+    
+    <script src="/web-components-cms-template-base/wc-config.js?baseUrl=/web-components-cms-template-base/src/es/components/"></script>
     <m-cookie-banner storage="localStorage" namespace="cookie-banner-">
         <style>
             :host {
@@ -68,12 +72,7 @@
         </section>
 
     </m-cookie-banner>
-    @Html.Raw(await runtimeMinifier.RenderJsHereAsync("inline-js-bundle"))
-    <script>
-        function onSubmit(token) {
-            document.getElementById("demo-form").submit();
-        }
-    </script>
+
 
     <script rel="preload" type="module">
         self.Environment = {

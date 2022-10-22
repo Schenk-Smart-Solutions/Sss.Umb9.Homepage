@@ -26,6 +26,7 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
         protected readonly IMutoboContentService ContententService;
         private readonly ICallToActionService _callToActionService;
         private readonly ICaptchaService _captchaService;
+        private readonly ISearchService _searchService;
 
         public BasePageController(
             ILogger<RenderController> logger,
@@ -35,7 +36,8 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             IPageLayoutService pageLayoutService,
             IMutoboContentService contentService,
             ICallToActionService callToActionService,
-            ICaptchaService captchaService)
+            ICaptchaService captchaService,
+            ISearchService searchService)
             : base(logger, compositeViewEngine, umbracoContextAccessor)
         {
             ImageService = imageService;
@@ -43,12 +45,23 @@ namespace Sss.Umb9.Mutobo.Controllers.PageControllers
             ContententService = contentService;
             _callToActionService = callToActionService;
             _captchaService = captchaService;
+            _searchService = searchService;
         }
 
 
         public override IActionResult Index()
         {
-          
+
+
+            var searchQuery = this.Request.Query["q"].ToString();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var searchresultModel = _searchService.PerformSearch(searchQuery);
+                return View("~/Views/SearchResults.cshtml",searchresultModel);
+            }
+
+
             var redirectLink = CurrentPage.Value<Link>(DocumentTypes.BasePage.Fields.RedirectLink);
 
             if (!string.IsNullOrEmpty(redirectLink?.Url))

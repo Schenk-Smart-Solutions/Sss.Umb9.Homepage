@@ -1,4 +1,5 @@
-﻿@model Sss.Umb9.Mutobo.Interfaces.IHeaderConfiguration
+﻿@using Sss.Umb9.Mutobo.PoCo
+@model Sss.Umb9.Mutobo.Interfaces.IHeaderConfiguration
 
 
 
@@ -6,77 +7,93 @@
     <style>
 
         :host {
-         
         }
 
         :host([sticky].top), :host([sticky].top) > header {
             background-color: var(--header-background-color, black) !important;
         }
 
-
     </style>
+    <div>
+   
+        <div style="display:flex; flex-direction: row; align-items:center;">
+            <a-logo namespace="logo-" src="@Model.Logo.DefaultSource.Src" href="@Model.LogoUrl.Url">
+                <style>
+                    :host {
+                        --logo-height: 170px;
+                        z-index: 10;
+                        position: relative;
+                    }
+                </style>
+            </a-logo>
 
 
-    <div style="display:flex; flex-direction: row; align-items:center;">
-        <a-logo namespace="logo-" src="@Model.Logo.DefaultSource.Src" href="@Model.LogoUrl.Url">
-            <style>
-                :host {
-                    --logo-height: 170px;
-                }
-            </style>
-        </a-logo>
 
-
-        <span style="font-size: min(1em, 5vw); font-weight: bold; margin: 0.5em 0 0.5em 0;">SMART AND SIMPLE AS NATURE</span>
+        </div>
     </div>
 
-
-        @if (Model.NavigationItems != null && Model.NavigationItems.Any())
-        {
-
+    @if (Model.NavigationItems != null && Model.NavigationItems.Any())
+    {
 
 
-    <m-navigation hover="false" namespace="navigation-" hit-area="false">
-        <style>
-            :host {
-                --navigation-color: var(--color);
-                --navigation-a-link-color-no-scroll: var(--color);
-                --navigation-color-open: #ffffff;
-                width:50%;
-            }
 
-            :host > a:hover {
-                color: #ffffff !important;
-            }
-        </style>
-        <ul>
-            <li>
-                <a href="/">
-                    Home
-                </a>
-            </li>
+        <m-navigation hover="true" namespace="navigation-" namespace-fallback="" hit-area="false" focus-lost-close="" no-scroll="" tabindex="0" role="navigation" aria-label="Menu" aria-labelledby="hamburger" aria-expanded="false">
+            <style>
+                :host {
+                    --navigation-color: var(--color);
+                    --navigation-a-link-color-no-scroll: var(--color);
+                    --navigation-color-open: #ffffff;
+                    width: 50%;
+                }
 
-            @foreach (var navItem in Model.NavigationItems)
-            {
-                <li>
-                    <a href="@navItem.Url" target="@(navItem.NewWindow ? "_blank" : string.Empty)">@navItem.Title</a>
-                    @if (navItem.Children.Any())
-                    {
-                        <ul>
-                            @foreach (var childNavItem in navItem.Children)
-                            {
-                                <li><a href="@childNavItem.Url" target="@(childNavItem.NewWindow ? "_blank" : string.Empty)">@childNavItem.Title</a></li>
-                            }
-                        </ul>
+                    :host > a:hover {
+                        color: #ffffff !important;
                     }
+            </style>
+            <div>
+                <div style="font-size: min(1em, 5vw); font-weight: bold;text-align:left; color: var(--navigation-color);padding:1em 0.5em">SMART AND SIMPLE AS NATURE</div>
+
+            </div>
+            <ul>
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
                 </li>
-            }
 
-        </ul>
-    </m-navigation>
+                @foreach (var navItem in Model.NavigationItems)
+                {
+                    <li>
+                        <a href="@navItem.Url" target="@(navItem.NewWindow ? "_blank" : string.Empty)">@navItem.Title</a>
+
+                        @if (navItem.Children.Any())
+                        {
+                            <section>
+                                <ul>
+                                    @foreach (var childNavItem in navItem.Children)
+                                    {
+                                        <li><a href="@childNavItem.Url" target="@(childNavItem.NewWindow ? "_blank" : string.Empty)">@childNavItem.Title</a></li>
+                                    }
+
+                                </ul>
+                            </section>
+
+                        }
 
 
-        }
+                    </li>
+                }
+                <li class="search">
+                    @await Html.PartialAsync("~/Views/Partials/SearchForm.cshtml", new SearchFormModel() { })
+                </li>
+
+            </ul>
+
+        </m-navigation>
+
+
+    }
+
 
 
 

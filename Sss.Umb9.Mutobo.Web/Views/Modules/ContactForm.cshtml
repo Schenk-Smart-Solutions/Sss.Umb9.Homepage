@@ -2,7 +2,7 @@
 @using Sss.Umb9.Mutobo.Configuration
 @using Sss.Umb9.Mutobo.Controllers.SurfaceControllers
 
-<base-m-contact-form type="newsletter" namespace="contactform-" namespace-children="" use-html-submit>
+<base-m-contact-form  namespace="contactform-" namespace-children="" use-html-submit>
 
     <style>
         :host form a-button {
@@ -13,7 +13,11 @@
             padding: 2em;
         }
 
-       
+
+        
+        :host form  textarea {
+            height: 10vh;
+        }
 
         :host form a-input input:-webkit-autofill,
         :host form a-input input:-webkit-autofill:focus {
@@ -75,10 +79,11 @@
         @Html.HiddenFor(m => m.Data.LandingPageId)
         @Html.HiddenFor(m => m.Data.CaptchaId)
 
+
        
 
         @Html.LabelFor(m => m.Data.CaptchaText, "Spamschutz *")
-        <base-m-captcha id="@Model.Captcha.Id" src="@Model.Captcha.Image"></base-m-captcha>
+@*        <base-m-captcha id="@Model.Captcha.Id" src="@Model.Captcha.Image"></base-m-captcha>
         @Html.TextBoxFor(m => m.Data.CaptchaText, new
         {
         required = "",
@@ -86,12 +91,10 @@
         @class = "form-control mandatory",
         placeholder= "Gib hier die 6 Buchtaben aus dem Bild ein"
 
-        })
+        })*@
 
+        <base-m-captcha-submit-button></base-m-captcha-submit-button>
 
-        <button 
-                type="submit" 
-                id="submitButton">Senden</button>
         <div class="website-container">
             @Html.TextBoxFor(m => m.Data.FuSb, new { name="website" })
         </div> 

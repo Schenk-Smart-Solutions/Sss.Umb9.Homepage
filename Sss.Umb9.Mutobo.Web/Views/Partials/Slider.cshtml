@@ -5,7 +5,7 @@
 
 
 
-<third-party-macro-carousel pagination loop height="@(Model.Height != null ? $"{Model.Height}px" : "auto")" namespace="carousel-" interval="@(Model.Interval ?? 5000)">
+<m-carousel pagination loop height="@(Model.Height != null ? $"{Model.Height}px" : "auto")" namespace="carousel-" interval="@(Model.Interval ?? 5000)">
     @foreach (var media in Model.Slides)
     {
         if (media is Sss.Umb9.Mutobo.PoCo.Image image)
@@ -22,4 +22,4 @@
         }
 
     }
-</third-party-macro-carousel>
+</m-carousel>

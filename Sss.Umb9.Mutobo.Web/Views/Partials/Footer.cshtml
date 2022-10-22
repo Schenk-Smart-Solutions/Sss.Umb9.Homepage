@@ -1,7 +1,7 @@
 ﻿@using System.Linq
 @using Sss.Umb9.Mutobo.Constants
 @model Sss.Umb9.Mutobo.Configuration.FooterConfiguration
-<o-footer namespace="footer-" theme="@Model.Theme">
+@*<o-footer namespace="footer-" theme="@Model.Theme">
     <style>
         :host {
           
@@ -69,21 +69,89 @@
 
 
     <div class="footer-links">
+    
+            <ul>
+                @if (Model.HasValue(DocumentTypes.FooterConfiguration.Fields.CopyRight))
+                {
+                    <li>
+                        <span>
+                            @Html.Raw(Model.Copyright)
+                        </span>
+                    </li>
 
+                }
 
-        <ul>
-            @if (Model.HasValue(DocumentTypes.FooterConfiguration.Fields.CopyRight))
+                @if (Model.FooterLinks != null && Model.FooterLinks.Any())
+                {
+                    @foreach (var link in Model.FooterLinks)
+                    {
+                        <li>
+                            <a href="@link.Url" target="@link.Target">
+                                @link.Name
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+
+            @if (Model.Languages != null && Model.Languages.Any())
             {
-                <li>
-                    <span>
-                        @Html.Raw(Model.Copyright)
-                    </span>
-                </li>
-
+                //Html.RenderAction("Index", "LanguageSwitcher");
             }
+ 
+    </div>
+       
 
-            @if (Model.FooterLinks != null && Model.FooterLinks.Any())
-            {
+
+
+
+
+
+</o-footer>*@
+<o-footer namespace="footer-default-">
+    <style>
+        :host {
+            background-color: var(--footer-default-invert-background-color);
+        }
+    </style>
+    <div class="invert">
+        <o-wrapper namespace="footer-default-" class="font-size-tiny-desktop">
+            <style>
+
+                :host > section {
+                    width: 100% !important;
+                    justify-content: flex-start !important;
+                }
+            </style>
+       
+            <o-wrapper namespace="wrapper-no-calc-column-width-" flex-nowrap-mobile no-calc-column-width width="50%">
+                <style>
+                    :host > section {
+                        justify-content: flex-start !important;
+                    }
+          
+                </style>
+                <div style="color:white;">Besuche mich auf Social Media</div>
+               
+                    <a href="https://www.facebook.com/Schenk-Smart-Solutions-100137789137575" rel="noopener noreferrer" target="_blank" title="facebook">
+                    <a-picture namespace="picture-footer-logo-" defaultsource="/assets/img/icons8-facebook.svg" alt="facebook">
+                    </a-picture>
+                  
+                    </a>
+              
+          
+                    <a href="https://www.linkedin.com/company/76560350" target="_blank" rel="noopener noreferrer" title="linkedIn">
+                    <a-picture namespace="picture-footer-logo-" defaultsource="/assets/img/icons8-linkedin.svg" alt="linkedIn">
+                    </a-picture>
+              
+                    </a>
+            </o-wrapper>
+        </o-wrapper>
+    </div>
+    <div class="copyright-and-language">
+        <div class="footer-links font-size-tiny-desktop">
+            <ul>
+                <li>@Html.Raw(Model.Copyright)</li>
                 @foreach (var link in Model.FooterLinks)
                 {
                     <li>
@@ -92,16 +160,7 @@
                         </a>
                     </li>
                 }
-            }
             </ul>
-  
-        @if (Model.Languages != null && Model.Languages.Any())
-        {
-            //Html.RenderAction("Index", "LanguageSwitcher");
-        }
+        </div>
     </div>
-
-
-
-
 </o-footer>
