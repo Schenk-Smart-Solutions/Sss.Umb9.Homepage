@@ -3,7 +3,7 @@
 
 
 
-<o-header sticky menu-icon="true" role="header" namespace="header-" class="show top">
+<o-header  menu-icon="true" role="header" namespace="header-" class="show top">
     <style>
 
         :host {
@@ -15,7 +15,6 @@
 
     </style>
     <div>
-   
         <div style="display:flex; flex-direction: row; align-items:center;">
             <a-logo namespace="logo-" src="@Model.Logo.DefaultSource.Src" href="@Model.LogoUrl.Url">
                 <style>
@@ -26,17 +25,11 @@
                     }
                 </style>
             </a-logo>
-
-
-
         </div>
     </div>
-
+      
     @if (Model.NavigationItems != null && Model.NavigationItems.Any())
     {
-
-
-
         <m-navigation hover="true" namespace="navigation-" namespace-fallback="" hit-area="false" focus-lost-close="" no-scroll="" tabindex="0" role="navigation" aria-label="Menu" aria-labelledby="hamburger" aria-expanded="false">
             <style>
                 :host {
@@ -49,10 +42,22 @@
                     :host > a:hover {
                         color: #ffffff !important;
                     }
-            </style>
-            <div>
-                <div style="font-size: min(1em, 5vw); font-weight: bold;text-align:left; color: var(--navigation-color);padding:1em 0.5em">SMART AND SIMPLE AS NATURE</div>
 
+                    :host div.header-container {
+                        display:flex; 
+                        flex-direction: row; 
+                        justify-content: space-between;
+                    }
+                    :host :host div.search-container  {
+                        padding:  1em;
+                        margin-right: 1em;
+                    }
+            </style>
+            <div class="header-container">
+                <div style="font-size: min(1em, 5vw); font-weight: bold;text-align:left; color: var(--navigation-color);padding:1em 0.5em">SMART AND SIMPLE AS NATURE</div>
+                <div class="search-container">     
+                 @await Html.PartialAsync("~/Views/Partials/SearchForm.cshtml", new SearchFormModel() { })
+                </div>    
             </div>
             <ul>
                 <li>
@@ -65,7 +70,6 @@
                 {
                     <li>
                         <a href="@navItem.Url" target="@(navItem.NewWindow ? "_blank" : string.Empty)">@navItem.Title</a>
-
                         @if (navItem.Children.Any())
                         {
                             <section>
@@ -74,29 +78,14 @@
                                     {
                                         <li><a href="@childNavItem.Url" target="@(childNavItem.NewWindow ? "_blank" : string.Empty)">@childNavItem.Title</a></li>
                                     }
-
                                 </ul>
                             </section>
-
                         }
-
-
                     </li>
                 }
-                <li class="search">
-                    @await Html.PartialAsync("~/Views/Partials/SearchForm.cshtml", new SearchFormModel() { })
-                </li>
+      
 
             </ul>
-
         </m-navigation>
-
-
     }
-
-
-
-
-
-
 </o-header>

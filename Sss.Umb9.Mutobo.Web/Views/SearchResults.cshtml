@@ -7,7 +7,7 @@
 	Layout = "Master.cshtml";
 }
 
-<base-o-body>
+<o-body>
 
 
 
@@ -18,7 +18,7 @@
         if (Model.Results.Any())
         {
             //TODO: Texte in DictionaryKeys
-            <p>@string.Format("Zu deiner Suche nach \"{0}\" wurde/n {1} Resultat/e gefunden:", Model.Term, Model.Results.Count())</p>
+            <div>@string.Format("Zu deiner Suche nach \"{0}\" wurde/n {1} Resultat/e gefunden:", Model.Term, Model.Results.Count())</div>
             <hr />
             foreach (var searchResults in Model.Results)
             {
@@ -50,4 +50,4 @@
             <p>@($"Die Suche nach \"{Model.Term}\" ergab keine Resultate")</p>
         }
     }
-</base-o-body>
+</o-body>

@@ -108,59 +108,102 @@
 
 
 </o-footer>*@
-<o-footer namespace="footer-default-">
+<o-footer namespace="footer-">
     <style>
         :host {
-            background-color: var(--footer-default-invert-background-color);
+            background-color: var(--footer-background-color);
+            text-align: left;
+            font-weight: normal; 
         }
-    </style>
-    <div class="invert">
-        <o-wrapper namespace="footer-default-" class="font-size-tiny-desktop">
-            <style>
 
-                :host > section {
-                    width: 100% !important;
-                    justify-content: flex-start !important;
-                }
-            </style>
+        :host div.footer-links {
+            display: flex;
+
+        }
+
+        div.footer-second-row {
+            display: flex;
+            flex-directon: column;
+            justify-content: space-between;
+            margin: 1em;
+            padding: 2em 1em;
+
+
+        }
+
+        div.footer-links {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        div.footer-links > a {
+            margin: 0 1em;
+        }
+
+        div.copy-right {
+            width: 100%;
+   
+        }
+
+        div.footer-first-row {
+            display: flex;
+            align-items: center;
+            padding: 2em 1em;
+        }
+
+        div.social-links {
+            margin-left: 2em;
+            display:flex;
+        }
+
+         @@media only screen and (max-width: 1250px) {
+                    div.footer-second-row, div.footer-first-row {
        
-            <o-wrapper namespace="wrapper-no-calc-column-width-" flex-nowrap-mobile no-calc-column-width width="50%">
-                <style>
-                    :host > section {
-                        justify-content: flex-start !important;
-                    }
-          
-                </style>
-                <div style="color:white;">Besuche mich auf Social Media</div>
+            flex-direction: column;
+            justify-content: center;
+     
+  
+
+
+        }
+
+        div.footer-second-row div, div.footer-first-row div {
+            justify-content: center;
+            text-align:center;
+        }
+         }
+    </style>
+        <div class="footer-first-row">
+                    <div style="color:var(--color);">Besuche mich auf Social Media</div>
                
+
+        <div class="social-links">
                     <a href="https://www.facebook.com/Schenk-Smart-Solutions-100137789137575" rel="noopener noreferrer" target="_blank" title="facebook">
-                    <a-picture namespace="picture-footer-logo-" defaultsource="/assets/img/icons8-facebook.svg" alt="facebook">
-                    </a-picture>
-                  
-                    </a>
+            <a-picture namespace="picture-footer-logo-" defaultsource="/assets/img/icons8-facebook.svg" alt="facebook"></a-picture>
+        </a>
               
           
-                    <a href="https://www.linkedin.com/company/76560350" target="_blank" rel="noopener noreferrer" title="linkedIn">
-                    <a-picture namespace="picture-footer-logo-" defaultsource="/assets/img/icons8-linkedin.svg" alt="linkedIn">
-                    </a-picture>
-              
-                    </a>
-            </o-wrapper>
-        </o-wrapper>
-    </div>
-    <div class="copyright-and-language">
-        <div class="footer-links font-size-tiny-desktop">
-            <ul>
-                <li>@Html.Raw(Model.Copyright)</li>
-                @foreach (var link in Model.FooterLinks)
-                {
-                    <li>
-                        <a href="@link.Url" target="@link.Target">
-                            @link.Name
-                        </a>
-                    </li>
-                }
-            </ul>
+        <a href="https://www.linkedin.com/company/76560350" target="_blank" rel="noopener noreferrer" title="linkedIn">
+            <a-picture namespace="picture-footer-logo-" defaultsource="/assets/img/icons8-linkedin.svg" alt="linkedIn">
+            </a-picture>              
+        </a>
         </div>
-    </div>
+
+
+
+        </div>
+
+        <div class="footer-second-row">
+            <div class="copy-right">@Html.Raw(Model.Copyright)</div>
+            <div class="footer-links">
+                @foreach (var link in Model.FooterLinks)
+                {  
+                    <a href="@link.Url" target="@link.Target">
+                        @link.Name
+                    </a>  
+                }
+            </div>
+       
+        <div>
 </o-footer>

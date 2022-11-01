@@ -7,7 +7,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Shorthand.ImageSharp.WebP" Version="2.2.1" />
-        <PackageReference Include="Umbraco.Cms" Version="10.3.1" />
+        <PackageReference Include="Umbraco.Cms" Version="10.3.2" />
         <PackageReference Include="uSync" Version="10.3.0" />
         <PackageReference Include="WebMarkupMin.AspNetCore5" Version="2.12.0" />
     </ItemGroup>
@@ -17,7 +17,6 @@
         <Compile Remove="wwwroot\media\**" />
         <Compile Remove="wwwroot\Smidge\**" />
         <Compile Remove="wwwroot\umbraco\**" />
-        <Compile Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
         <Content Remove="umbraco/Data/**" />
         <Content Remove="umbraco/Logs/**" />
         <Content Remove="umbraco/mediacache/**" />
@@ -25,18 +24,15 @@
         <Content Remove="wwwroot\media\**" />
         <Content Remove="wwwroot\Smidge\**" />
         <Content Remove="wwwroot\umbraco\**" />
-        <Content Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
         <Compile Include="umbraco/models/**" Exclude="**/*.flag" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Remove="wwwroot\media\**" />
       <EmbeddedResource Remove="wwwroot\Smidge\**" />
       <EmbeddedResource Remove="wwwroot\umbraco\**" />
-      <EmbeddedResource Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
       <None Remove="wwwroot\media\**" />
       <None Remove="wwwroot\Smidge\**" />
       <None Remove="wwwroot\umbraco\**" />
-      <None Remove="wwwroot\web-components-cms-template-base\src\es\components\web-components-cms-template\backstop_data\**" />
     </ItemGroup>
     <ItemGroup>
       <Content Remove="appsettings.Development.json" />
@@ -538,6 +534,7 @@
       <None Include="uSync\v9\usync.config" />
     </ItemGroup>
     <ItemGroup>
+      <Folder Include="Properties\PublishProfiles\" />
       <Folder Include="wwwroot\assets\fonts\" />
     </ItemGroup>
 
@@ -575,5 +572,4 @@
       </FilesForPackagingFromProject>
     </ItemGroup>
   </Target>
-
 </Project>
