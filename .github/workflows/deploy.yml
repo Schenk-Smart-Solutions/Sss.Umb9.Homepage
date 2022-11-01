@@ -16,6 +16,7 @@ jobs:
           workflow: dotnet.yml
           workflow_conclusion: completed
           name: .net-app
+          path: ~/myapp
     
       - name: Display structure of downloaded files
         run: ls -R
