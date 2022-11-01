@@ -16,11 +16,9 @@ jobs:
           workflow: dotnet.yml
           workflow_conclusion: completed
           name: .net-app
-          path: ~/myapp
     
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: ~/myapp
 
 
 
@@ -38,4 +36,4 @@ jobs:
           # Password used by Basic authentication to the MS Deploy Service
           msdeploy-password: ${{ secrets.SERVER_PASSWORD }}
           # The path to the source directory that will be deployed
-          source-path: ~/myapp
+          source-path: /
