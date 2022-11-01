@@ -8,21 +8,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
-    
-    # dotnet build and publish
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-    - name: dotnet publish
-      run: |
-        dotnet publish -c Release -o dotnetcorewebapp 
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
-      uses: azure/webapps-deploy@v1
-      with: 
-        app-name: dotnetcorewebapp19 # Replace with your app name
-        publish-profile: ${{ secrets.PUBLISH_PROFILE }}
-        package: './dotnetcorewebapp'
+      - uses: actions/checkout@v2
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+      - name: IIS Deploy
+  # You may pin to the exact commit or the version.
+  # uses: ChristopheLav/iis-deploy@3b6a141da6e1923a4af25e01734ab58c081f8444
+        uses: ChristopheLav/iis-deploy@v1.0.0
+        with:
+          # IIS website name
+          website-name: ${{ secrets.MSDEPLOY_URL }}
+          # MS Deploy Service URL
+          msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
+          # Username used by Basic authentication to the MS Deploy Service
+          msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
+          # Password used by Basic authentication to the MS Deploy Service
+          msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+          # The path to the source directory that will be deployed
+          source-path: ${{env.DOTNET_ROOT}}/myapp
