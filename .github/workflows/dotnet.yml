@@ -23,18 +23,4 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-      - name: IIS Deploy
-  # You may pin to the exact commit or the version.
-  # uses: ChristopheLav/iis-deploy@3b6a141da6e1923a4af25e01734ab58c081f8444
-        uses: ChristopheLav/iis-deploy@v1.0.0
-        with:
-          # IIS website name
-          website-name: ${{ secrets.MSDEPLOY_WEBSITE_NAME }}
-          # MS Deploy Service URL
-          msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
-          # Username used by Basic authentication to the MS Deploy Service
-          msdeploy-username: ${{ secrets.SERVER_USERNAME }}
-          # Password used by Basic authentication to the MS Deploy Service
-          msdeploy-password: ${{ secrets.SERVER_PASSWORD }}
-          # The path to the source directory that will be deployed
-          source-path: ${{env.DOTNET_ROOT}}/myapp
+

@@ -5,24 +5,22 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
+      
       - uses: actions/checkout@v2
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+
+      - uses: actions/download-artifact@v3
         with:
-          dotnet-version: '6.0.x'
-          include-prerelease: true
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: my-artifact
+    
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: ~/myapp
+
+
+
       - name: IIS Deploy
   # You may pin to the exact commit or the version.
   # uses: ChristopheLav/iis-deploy@3b6a141da6e1923a4af25e01734ab58c081f8444
@@ -37,4 +35,4 @@ jobs:
           # Password used by Basic authentication to the MS Deploy Service
           msdeploy-password: ${{ secrets.SERVER_PASSWORD }}
           # The path to the source directory that will be deployed
-          source-path: ${{env.DOTNET_ROOT}}/myapp
+          source-path: ~/myapp
