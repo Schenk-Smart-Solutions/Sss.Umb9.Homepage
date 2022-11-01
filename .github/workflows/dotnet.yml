@@ -29,12 +29,12 @@ jobs:
         uses: ChristopheLav/iis-deploy@v1.0.0
         with:
           # IIS website name
-          website-name: ${{ secrets.MSDEPLOY_URL }}
+          website-name: ${{ secrets.MSDEPLOY_WEBSITE_NAME }}
           # MS Deploy Service URL
           msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
           # Username used by Basic authentication to the MS Deploy Service
-          msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
+          msdeploy-username: ${{ secrets.SERVER_USERNAME }}
           # Password used by Basic authentication to the MS Deploy Service
-          msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+          msdeploy-password: ${{ secrets.SERVER_PASSWORD }}
           # The path to the source directory that will be deployed
           source-path: ${{env.DOTNET_ROOT}}/myapp
